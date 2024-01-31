@@ -14,25 +14,25 @@
     </ul>
 
     <script>
-     let button = document.querySelector("tasksubmit");
+     let button = document.querySelector("#tasksubmit");
      let taskname = document.getElementById("entertask");
      let tasklist = document.getElementById("tasklist");
 
     document.getElementById("tasksubmit").addEventListener("submit", addtask)
     
     function addtask() {
-
+      if (taskname.value !== "") {
       let listitem = document.createElement("li");
 
       listitem.textContent = taskname.value;
 
       tasklist.appendChild(listitem);
+      
+      taskname.value = "";
 
-      inputname.value = "";
-
-    }
+    }}
     
     </script>
 
  </body>
-</html>
+</html> 
