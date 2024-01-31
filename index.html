@@ -1,64 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
- <body>
     <title>TODO Project</title>
     <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-        padding-left: 1%;
-        background-color: #f0f0f0;
-        color: #333;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-        </style>
-      
-    </head>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding-left: 1%;
+            background-color: #f0f0f0;
+            color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
     <h1>Hello, World!</h1>
-    
     <input type="text" name="entertask" id="entertask">
     <button name="tasksubmit" id="tasksubmit"> Submit </button>
     <ul id="tasklist"></ul>
 
     <script>
-     let button = document.querySelector("#tasksubmit");
-     let taskname = document.getElementById("entertask");
-     let tasklist = document.getElementById("tasklist");
+        // Behavioral pattern: Observer
+        class TaskManager {
+            constructor() {
+                this.tasks = [];
+                this.observers = [];
+            }
 
-    button.addEventListener("click", addtask);
-    
-    function addtask() {
+            addTask(task) {
+                this.tasks.push(task);
+                this.notifyAll();
+            }
 
-      if (taskname.value !== "") {
-      let listitem = document.createElement("li");
-      let deleteButton = document.createElement("button");
+            deleteTask(task) {
+                const index = this.tasks.indexOf(task);
+                if (index > -1) {
+                    this.tasks.splice(index, 1);
+                }
+                this.notifyAll();
+            }
 
-      listitem.textContent = taskname.value;
-      deleteButton.textContent = "Delete"
+            addObserver(observer) {
+                this.observers.push(observer);
+            }
 
-      deleteButton.addEventListener("click", function() {
+            notifyAll() {
+                for (let observer of this.observers) {
+                    observer.update(this.tasks);
+                }
+            }
+        }
 
-        tasklist.removeChild(listitem)
+        // Structural pattern: Decorator
+        class Task {
+            constructor(name) {
+                this.name = name;
+                this.completed = false;
+            }
+
+            complete() {
+                this.completed = true;
+            }
+
+            uncomplete() {
+                this.completed = false;
+            }
+        }
+
+        // Creational pattern: Factory
+        class TaskFactory {
+            createTask(name) {
+                return new Task(name);
+            }
+        }
+
+        // Concurrency pattern: Promises for async behavior
+        document.querySelector("#tasksubmit").addEventListener("click", function() {
+            const taskManager = new TaskManager();
+            const taskFactory = new TaskFactory();
+            const taskName = document.getElementById("entertask").value;
+
+            if (taskName !== "") {
+                const newTask = taskFactory.createTask(taskName);
+                taskManager.addTask(newTask);
+            }
         });
-
-
-
-      listitem.appendChild(deleteButton);
-      tasklist.appendChild(listitem);
-      
-      taskname.value = "";
-
-    }}
-    
     </script>
 
-
     <p>FirstJS Alpha v0.1</p>
-
- </body>
-</html> 
+</body>
+</html>
