@@ -7,7 +7,7 @@
     <h1>Hello, World!</h1>
     
     <input type="text" name="entertask" id="entertask">
-    <input type="submit" name="tasksubmit" id="tasksubmit">
+    <button name="tasksubmit" id="tasksubmit">
     <ul id="tasklist">
         <li>
         </li>
@@ -21,6 +21,7 @@
     document.getElementById("tasksubmit").addEventListener("submit", addtask)
     
     function addtask() {
+
       if (taskname.value !== "") {
       let listitem = document.createElement("li");
 
