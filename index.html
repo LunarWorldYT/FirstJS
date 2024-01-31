@@ -31,27 +31,25 @@
      let tasklist = document.getElementById("tasklist");
 
     button.addEventListener("click", addtask);
-    
     function addtask() {
+  if (taskname.value !== "") {
+    let listitem = document.createElement("li");
+    let deleteButton = document.createElement("button");
+    let checkbox = document.createElement("input");
 
-      if (taskname.value !== "") {
-      let listitem = document.createElement("li");
-      let taskComplete = document.createElement("input")
-      let deleteButton = document.createElement("button");
+    // Set the input type to checkbox
+    checkbox.type = "checkbox";
 
-      checkbox.type = "checkbox";
-
-      checkbox.addEventListener("change", function() {
-
-        if(this.checked) {
-          listitem.style.textDecoration = "line-through";
-        }else {
-            listitem.style.textDecoration = "none";
-          }
-        }
-
-      );
-
+    // Add an event listener to the checkbox
+    checkbox.addEventListener("change", function() {
+      if (this.checked) {
+        // If the checkbox is checked, add a line-through style to the task
+        listitem.style.textDecoration = "line-through";
+      } else {
+        // If the checkbox is unchecked, remove the line-through style from the task
+        listitem.style.textDecoration = "none";
+      }
+    });
       listitem.textContent = taskname.value;
       deleteButton.textContent = "Delete"
 
