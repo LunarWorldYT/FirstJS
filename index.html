@@ -8,11 +8,31 @@
     
     <input type="text" name="entertask" id="entertask">
     <input type="submit" name="tasksubmit" id="tasksubmit">
+    <ul id="tasklist">
+        <li>
+        </li>
+    </ul>
 
-    <label for="action1">First Action:</label>
-     <input type="checkbox" id="action1" name="action1">
-     
-     <ul></ul>
+    <script>
+     let button = document.querySelector("tasksubmit");
+     let taskname = document.getElementById("entertask");
+     let tasklist = document.getElementById("tasklist");
+
+    document.getElementById("tasksubmit").addEventListener("submit", addtask)
+    
+    function addtask() {
+
+      let listitem = document.createElement("li");
+
+      listitem.textContent = taskname.value;
+
+      tasklist.appendChild(listitem);
+
+      inputname.value = "";
+
+    }
+    
+    </script>
 
  </body>
 </html>
